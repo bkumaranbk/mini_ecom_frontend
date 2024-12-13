@@ -4,10 +4,13 @@ import ProductSearchPage from './ProductSearchPage';
 import { Link } from 'react-router-dom';
 
 
+
+
 const FavouriteProductsPage = () => {
   const [favourites, setFavourites] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
 
   useEffect(() => {
     const fetchFavourites = async () => {

@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Form, Button } from 'react-bootstrap';
+import { Container ,Form, Table, Button, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import ProductSearchPage from './ProductSearchPage';
 
 const EditProductPage = () => {
   const { id } = useParams();
   const navigate = useNavigate(); 
 
   const [product, setProduct] = useState({
+    sku: '',
     name: '',
     description: '',
     quantity: '',
@@ -50,9 +53,27 @@ const EditProductPage = () => {
 
   return (
     <Container>
+    <Row className="align-items-center mb-4">
+        <Col md={6}>
+          <ProductSearchPage />
+        </Col>
+        <Col md={6} className="text-end">
+        <Link to="/add-product" className="btn btn-primary me-2">Add Product</Link>
+        <Link to="/favourites" className="btn btn-secondary">Favourites</Link>
+        </Col>
+      </Row>
       <h2>Edit Product {id}</h2>
       {error && <p className="text-danger">{error}</p>}
       <Form onSubmit={handleSubmit}>
+      <Form.Group controlId="formProductSku">
+          <Form.Label>SKU</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter product SKU"
+            value={product.sku}
+            onChange={(e) => setProduct({ ...product, sku: e.target.value })}
+          />
+        </Form.Group>
         <Form.Group controlId="formProductName">
           <Form.Label>Product Name</Form.Label>
           <Form.Control

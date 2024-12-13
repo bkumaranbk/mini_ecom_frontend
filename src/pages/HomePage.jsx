@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Table, Button, Row, Col } from 'react-bootstrap';
+import {Image, Container, Table, Button, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import ConfirmationPopup from '../components/ConfirmationPopup'; // Import the popup component
+import ConfirmationPopup from '../components/ConfirmationPopup';
 import ProductSearchPage from './ProductSearchPage';
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
-  const [favourites, setFavourites] = useState([]);
-  const [showPopup, setShowPopup] = useState(false);  // State to show the popup
-  const [productToDelete, setProductToDelete] = useState(null);  // Store the product to delete
+  const [showPopup, setShowPopup] = useState(false);
+  const [productToDelete, setProductToDelete] = useState(null);
 
   // Fetch products from the API
   useEffect(() => {
@@ -25,18 +24,18 @@ const HomePage = () => {
     fetchProducts();
   }, []);
 
-  // Handle deleting a product
+
   const handleDelete = async (id) => {
     try {
-      // Send DELETE request to the API
+
       const response = await fetch(`http://localhost:5000/api/products/delete/${id}`, {
         method: 'DELETE',
       });
 
       if (response.ok) {
-        // Update local state to remove the deleted product
+
         setProducts(products.filter((product) => product._id !== id));
-        setShowPopup(false);  // Close the popup
+        setShowPopup(false);
       } else {
         console.error('Error deleting product:', response.statusText);
       }
@@ -45,44 +44,57 @@ const HomePage = () => {
     }
   };
 
-  // Handle showing the popup before deleting a product
+
   const confirmDelete = (product) => {
-    setProductToDelete(product);  // Store the product to delete
-    setShowPopup(true);  // Show the popup
+    setProductToDelete(product);
+    setShowPopup(true);
   };
 
-  // Handle canceling the deletion
+
   const cancelDelete = () => {
-    setShowPopup(false);  // Close the popup
-    setProductToDelete(null);  // Clear the product to delete
+    setShowPopup(false);
+    setProductToDelete(null);
   };
 
-  // Handle adding a product to favourites
-  const handleFavourite = (product) => {
-    if (!favourites.find((fav) => fav._id === product._id)) {
-      setFavourites([...favourites, product]);
+
+  const handleFavourite = async (product) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/products/favourite/${product._id}`, {
+        method: 'PATCH',
+      });
+
+      if (response.ok) {
+
+        const updatedResponse = await fetch('http://localhost:5000/api/products');
+        const updatedData = await updatedResponse.json();
+        setProducts(updatedData);
+      } else {
+        console.error('Error updating favourite:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error updating favourite:', error);
     }
   };
 
   return (
     <Container>
       <>
-  <Row className="align-items-center mb-4">
-        <Col md={6}>
-          <ProductSearchPage />
-        </Col>
-        <Col md={6} className="text-end">
-        <Link to="/add-product" className="btn btn-primary me-2">Add Product</Link>
-        <Link to="/favourites" className="btn btn-secondary">Favourites</Link>
-        </Col>
-      </Row>
+        <Row className="align-items-center mb-4">
+          <Col md={6}>
+            <ProductSearchPage />
+          </Col>
+          <Col md={6} className="text-end">
+            <Link to="/add-product" className="btn btn-primary me-2">Add Product</Link>
+            <Link to="/favourites" className="btn btn-secondary">Favourites</Link>
+          </Col>
+        </Row>
       </>
       <h1>Product List</h1>
-      <Table striped bordered hover>
+      <Table striped hover>
         <thead>
           <tr>
-            {/* <th>ID</th> */}
             <th>SKU</th>
+            <th>Image</th>
             <th>Name</th>
             <th>Description</th>
             <th>Price</th>
@@ -93,8 +105,17 @@ const HomePage = () => {
         <tbody>
           {products.map((product) => (
             <tr key={product._id}>
-              {/* <td>{product._id}</td> */}
               <td>{product.sku}</td>
+              <td>
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  width={50}
+                  height={50}
+                  rounded
+                />
+
+              </td>
               <td>{product.name}</td>
               <td>{product.description}</td>
               <td>{product.quantity}</td>
@@ -117,9 +138,10 @@ const HomePage = () => {
                   Delete
                 </Button>
                 <Button
-                  variant="info"
+                  variant={product.favorite ? "success" : "info"}
                   size="sm"
                   onClick={() => handleFavourite(product)}
+                  className={product.favorite ? "rounded-pill" : ""}
                 >
                   Favourite
                 </Button>

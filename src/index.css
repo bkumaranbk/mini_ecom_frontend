@@ -1,13 +1,86 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Satoshi:wght@400;600&display=swap');
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+
+button {
+  background-color: #001EB9;
+  color: white; 
+  border: none; 
+  padding: 10px 20px; 
+  font-size: 16px; 
+  border-radius: 5px; 
+  cursor: pointer; 
+}
+
+button:hover {
+  background-color: #0051D1;
+}
+
+
+/* Navbar Styling */
+.navbar-custom {
+  background-color: #162427; /* Navbar color */
+  padding: 15px 30px; /* Padding added to the left and right sides */
+}
+
+/* Logo Styling */
+.brand-text {
+  font-size: 24px;
+  color: white;
+}
+
+/* Admin Section (Aligning Admin Name and Circle) */
+.admin-section {
+  display: flex;
+  align-items: center;
+  padding-right: 120px; /* Added padding to the right of the admin section */
+}
+
+.nav-section{
+  align-items: center;
+  padding-left: 120px;
+}
+
+/* Admin Name */
+.admin-name {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 10px; /* Space between admin name and circle */
+}
+
+/* Blue Circle */
+.circle-container {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  background-color: #001EB9; /* Blue Circle */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Active Circle (Green Circle) */
+.active-circle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: #28a745; /* Green color */
+  border-radius: 50%;
+  bottom: 3px;
+  right: 3px;
 }
