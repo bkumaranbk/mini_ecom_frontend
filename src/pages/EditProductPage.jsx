@@ -62,7 +62,7 @@ const EditProductPage = () => {
         <Link to="/favourites" className="btn btn-secondary">Favourites</Link>
         </Col>
       </Row>
-      <h2>Edit Product {id}</h2>
+      <h2>Edit Product {product.sku}</h2>
       {error && <p className="text-danger">{error}</p>}
       <Form onSubmit={handleSubmit}>
       <Form.Group controlId="formProductSku">
@@ -135,7 +135,7 @@ const EditProductPage = () => {
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button className='mt-3 mb-4' variant="primary" type="submit">
           Save Changes
         </Button>
       </Form>

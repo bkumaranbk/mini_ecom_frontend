@@ -3,7 +3,7 @@ import { Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const Header = () => (
-  <Navbar bg="dark" variant="dark" className="navbar-custom">
+  <Navbar bg="dark" variant="dark" className="navbar-custom align-items-center mb-4"  md={8} sm={6} xl={3}>
     {/* Logo */}
     <Navbar.Brand as={Link} to="/" className="brand-text nav-section">
       Logo

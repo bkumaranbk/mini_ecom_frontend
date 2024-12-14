@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Container, Form, Table, Button, Row, Col, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import ProductSearchPage from './ProductSearchPage';
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 const AddProductPage = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   // Define state for form fields
   const [sku, setSku] = useState('');
   const [name, setName] = useState('');
@@ -60,13 +60,13 @@ const AddProductPage = () => {
 
   return (
     <Container>
-    <Row className="align-items-center mb-4">
-        <Col md={6}>
+      <Row className="align-items-center mb-4">
+        <Col md={6} >
           <ProductSearchPage />
         </Col>
-        <Col md={6} className="text-end">
-        <Link to="/add-product" className="btn btn-primary me-2">Add Product</Link>
-        <Link to="/favourites" className="btn btn-secondary">Favourites</Link>
+        <Col mb={3} sm={2} md={6} className="text-end">
+          <Link to="/add-product" className="btn btn-primary me-2">Add Product</Link>
+          <Link to="/favourites" className="btn btn-secondary">Favourites</Link>
         </Col>
       </Row>
       <h2>Add Product</h2>
@@ -132,16 +132,16 @@ const AddProductPage = () => {
         </Form.Group>
 
         <Form.Group controlId="formProductImages">
-          <Form.Label>Product Images (comma separated)</Form.Label>
+          <Form.Label>Upload Product Images</Form.Label>
           <Form.Control
-            type="text"
-            placeholder="Enter image paths (comma separated)"
-            value={images}
-            onChange={(e) => setImages(e.target.value.split(','))}
+            type="file"
+            multiple
+            accept="image/*"
+            onChange={(e) => setImages(e.target.files)}
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button className="mt-3 mb-4" variant="primary" type="submit">
           Add Product
         </Button>
       </Form>

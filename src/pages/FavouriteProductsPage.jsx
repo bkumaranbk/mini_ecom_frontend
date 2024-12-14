@@ -40,7 +40,7 @@ const FavouriteProductsPage = () => {
   }
 
   return (
-    <Container>
+    <Container className="align-items-center mb-4" md={4} sm={6} xl={3}>
     <Row className="align-items-center mb-4">
         <Col md={6}>
           <ProductSearchPage />
@@ -51,7 +51,7 @@ const FavouriteProductsPage = () => {
         </Col>
       </Row>
       <h1>Favourite Products</h1>
-      <Table striped bordered hover>
+      <Table striped hover >
         <thead>
           <tr>
             <th>SKU</th>
